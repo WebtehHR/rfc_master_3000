@@ -42,3 +42,32 @@ gem 'jbuilder', '~> 1.2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'simple_form', '>= 3.0.0.rc'
+
+group :assets do
+  gem 'therubyracer', :platform=>:ruby
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
+  gem 'quiet_assets'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
+group :production do
+  gem 'thin'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'minitest-spec-rails'
+  gem 'minitest-wscolor'
+end
+
