@@ -1,78 +1,29 @@
-<h1>Listing request_for_changes</h1>
+<h1>RFCs</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Noc tracking number</th>
-      <th>Webteh tracking number</th>
-      <th>Type network</th>
-      <th>Type servers</th>
-      <th>Type application</th>
-      <th>Type user management</th>
-      <th>Requested by</th>
-      <th>Description of change</th>
-      <th>Change repair</th>
-      <th>Change removal</th>
-      <th>Change emergency</th>
-      <th>Change other</th>
-      <th>Request implement window</th>
-      <th>Systems affected</th>
-      <th>Users affected</th>
-      <th>Criticality of change</th>
-      <th>Test plan</th>
-      <th>Back out plan</th>
-      <th>Management approver</th>
-      <th>Cso approver</th>
-      <th>Approval status</th>
-      <th>Approval comments</th>
-      <th>Change scheduled for</th>
-      <th>Approval date</th>
-      <th>Implementor</th>
-      <th>Implementation status</th>
-      <th>Implement comments</th>
-      <th>Implementation start</th>
-      <th>Implementation end</th>
-      <th></th>
-      <th></th>
+      <th>RFC ID</th>
+      <th>Tracker</th>
+      <th>Description</th>
+      <th>Criticality</th>
+      <th>Implementation?</th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @request_for_changes.each do |request_for_change| %>
+    <% @request_for_changes.each do |rfc| %>
       <tr>
-        <td><%= request_for_change.noc_tracking_number %></td>
-        <td><%= request_for_change.webteh_tracking_number %></td>
-        <td><%= request_for_change.type_network %></td>
-        <td><%= request_for_change.type_servers %></td>
-        <td><%= request_for_change.type_application %></td>
-        <td><%= request_for_change.type_user_management %></td>
-        <td><%= request_for_change.requested_by_id %></td>
-        <td><%= request_for_change.description_of_change %></td>
-        <td><%= request_for_change.change_repair %></td>
-        <td><%= request_for_change.change_removal %></td>
-        <td><%= request_for_change.change_emergency %></td>
-        <td><%= request_for_change.change_other %></td>
-        <td><%= request_for_change.request_implement_window %></td>
-        <td><%= request_for_change.systems_affected %></td>
-        <td><%= request_for_change.users_affected %></td>
-        <td><%= request_for_change.criticality_of_change %></td>
-        <td><%= request_for_change.test_plan %></td>
-        <td><%= request_for_change.back_out_plan %></td>
-        <td><%= request_for_change.management_approver_id %></td>
-        <td><%= request_for_change.cso_approver_id %></td>
-        <td><%= request_for_change.approval_status %></td>
-        <td><%= request_for_change.approval_comments %></td>
-        <td><%= request_for_change.change_scheduled_for %></td>
-        <td><%= request_for_change.approval_date %></td>
-        <td><%= request_for_change.implementor_id %></td>
-        <td><%= request_for_change.implementation_status %></td>
-        <td><%= request_for_change.implement_comments %></td>
-        <td><%= request_for_change.implementation_start %></td>
-        <td><%= request_for_change.implementation_end %></td>
-        <td><%= link_to 'Show', request_for_change %></td>
-        <td><%= link_to 'Edit', edit_request_for_change_path(request_for_change) %></td>
-        <td><%= link_to 'Destroy', request_for_change, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= rfc.rfc_id %></td>
+        <td>
+          <%= link_to 'Webteh', rfc.webteh_tracking_url, class: 'btn btn-small', target: '_blank' if rfc.webteh_tracking_url.present? %>
+          <%= link_to 'NOC',    rfc.noc_tracking_url, class: 'btn btn-small', target: '_blank' if rfc.noc_tracking_url.present? %>
+        </td>
+        <td><%= rfc.description_of_change %></td>
+        <td><%= rfc.criticality_of_change %></td>
+        <td><%= rfc.implementation_status_for_show %></td>
+        <td><%= link_to 'Edit', edit_request_for_change_path(rfc), class: 'btn' %></td>
       </tr>
     <% end %>
   </tbody>

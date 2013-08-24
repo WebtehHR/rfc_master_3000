@@ -126,6 +126,10 @@ class RequestForChange < ActiveRecord::Base
     mgmt_approval_status == 'approved' && sec_approval_status == 'approved'
   end
 
+  def implementation_rejected?
+    mgmt_approval_status == 'rejected' || sec_approval_status == 'rejected'
+  end
+
   def at_least_partially_approved?
     mgmt_approval_status == 'approved' || sec_approval_status == 'approved'
   end
@@ -149,6 +153,19 @@ class RequestForChange < ActiveRecord::Base
   end
   # ========================== END:   roles? ===================================
 
+  def rfc_id
+    "RFC-#{3000+id}"
+  end
+
+  def implementation_status_for_show
+    if implementation_granted?
+      implementation_status.try(:humanize) || 'In progress'
+    elsif implementation_rejected?
+      "No, rejected by #{detect_approval_status_source('rejected').join(', ')}"
+    else
+      "Need approval from #{detect_approval_status_source('uncertain').join(', ')}"
+    end
+  end
 
   
   private
@@ -188,5 +205,15 @@ class RequestForChange < ActiveRecord::Base
     changed? || options[:force]
   end
 
+  def approval_status
+    {
+      manager:  mgmt_approval_status || 'uncertain',
+      security: sec_approval_status || 'uncertain',
+    }
+  end
+
+  def detect_approval_status_source status
+    approval_status.map{|k,v| k if v == status }.compact
+  end
 
 end
