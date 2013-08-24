@@ -12,6 +12,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'simple_form_class', git: 'https://github.com/bbozo/simple_form_class'
+gem 'paper_trail', :git => "https://github.com/airblade/paper_trail.git", :branch => "rails4"
 group :assets do
   gem 'therubyracer', :platform=>:ruby
 end

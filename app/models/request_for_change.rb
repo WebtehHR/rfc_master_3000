@@ -1,5 +1,7 @@
 class RequestForChange < ActiveRecord::Base
 
+  has_paper_trail
+
   CRITICALITY = [ 'low', 'medium', 'high' ]
   APPROVAL_STATUSES = [ 'approved', 'rejected', 'uncertain' ]
   IMPLEMENTATION_STATUSES = [ 'implemented', 'failed' ]
