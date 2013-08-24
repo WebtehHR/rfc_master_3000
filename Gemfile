@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'simple_form', '>= 3.0.0.rc'
+gem 'simple_form_class', git: 'https://github.com/bbozo/simple_form_class'
 group :assets do
   gem 'therubyracer', :platform=>:ruby
 end
