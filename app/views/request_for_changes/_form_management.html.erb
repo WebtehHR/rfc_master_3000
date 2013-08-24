@@ -1,0 +1,13 @@
+<div class="container well">
+  <h2>Section 2: Management</h2>
+  <hr/>
+
+  <div class="row-fluid">
+    <%= f.input :management_approver_email, disabled: true %>
+    <%= f.input :security_approver_email, disabled: true %>
+    <%= f.input :approval_status, collection: RequestForChange::APPROVAL_STATUSES, as: :radio_buttons %>
+    <%= f.input :approval_comments %>
+    <%= f.input :change_scheduled_for %>
+    <%= f.input :approval_date, disabled: true %>
+  </div>
+</div>

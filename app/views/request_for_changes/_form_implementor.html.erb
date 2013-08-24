@@ -1,0 +1,12 @@
+<div class="container well">
+  <h2>Section 4: Implementor</h2>
+  <hr/>
+
+  <div class="row-fluid">
+    <%= f.input :implementor_id %>
+    <%= f.input :implementation_status, collection: RequestForChange::IMPLEMENTATION_STATUSES, as: :radio_buttons %>
+    <%= f.input :implement_comments %>
+    <%= f.input :implementation_start %>
+    <%= f.input :implementation_end %>
+  </div>
+</div>

@@ -1,100 +1,18 @@
+<hr/>
+
 <%= simple_form_for(@request_for_change) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <div class="row-fluid">
-      <div class="span3">
-        <%= f.input :requestor_email, disabled: true %>
-      </div>
-      <div class="span3">
-        <%= f.input :noc_tracking_url, label: 'NOC tracking URL' %>
-      </div>
-      <div class="span3">
-        <%= f.input :webteh_tracking_url, label: 'Webteh tracking URL' %>
-      </div>
-    </div>
-    <hr/>
 
-    <div class="row-fluid">
-      <div class="span4"><%= f.input :description_of_change %></div>
-      <label>Type</label>
-      <div class="span2">
-        <%= f.input :type_network, label: 'Network' %>
-      </div>
-      <div class="span2">
-        <%= f.input :type_servers, label: 'Servers' %>
-      </div>
-      <div class="span2">
-        <%= f.input :type_application, label: 'Application' %>
-      </div>
-      <div class="span2">
-        <%= f.input :type_user_management, label: 'User management' %>
-      </div>
-    </div>
-    <hr/>
+    <%= render 'form_requestor', :f => f %>
 
-    <div class="row-fluid">
-      <label>Type of change</label>
-      <div class="span2">
-        <%= f.input :change_repair, label: 'Repair' %>
-      </div>
-      <div class="span2">
-        <%= f.input :change_removal, label: 'Removal' %>
-      </div>
-      <div class="span2">
-        <%= f.input :change_emergency, label: 'Emergency' %>
-      </div>
-      <div class="span2">
-        <%= f.input :change_other, label: 'Other' %>
-      </div>
-    </div>
-    <hr/>
+    <%= render 'form_management', :f => f %>
 
-    <div class="row-fluid">
-      <div class="span2">
-        <%= f.input :criticality_of_change, collection: RequestForChange::CRITICALITY, as: :radio_buttons %>
-      </div>
-      <div class="span5">
-        <%= f.input :systems_affected, as: :text %>
-      </div>
-      <div class="span5">
-        <%= f.input :users_affected, as: :text %>
-      </div>
-    </div>
-    <hr/>
+    <%= render 'form_security', :f => f %>
 
-    <div class="row-fluid">
-      <div class="span6">
-        <%= f.input :test_plan, :input_html => { :cols => 80, :rows => 10 } %>
-      </div>
-      <div class="span6">
-        <%= f.input :back_out_plan, :input_html => { :cols => 80, :rows => 10 } %>
-      </div>
-    </div>
-    <hr/>
+    <%= render 'form_implementor', :f => f %>
 
-    <div class="row-fluid">
-      <%= f.input :request_implement_window, label: 'Request implementation window' %>
-    </div>
-    <hr/>
-    
-    <div class="row-fluid">
-      <%= f.input :management_approver_email, disabled: true %>
-      <%= f.input :security_approver_email, disabled: true %>
-      <%= f.input :approval_status, collection: RequestForChange::APPROVAL_STATUSES, as: :radio_buttons %>
-      <%= f.input :approval_comments %>
-      <%= f.input :change_scheduled_for %>
-      <%= f.input :approval_date, disabled: true %>
-    </div>
-    <hr/>
-
-    <div class="row-fluid">
-      <%= f.input :implementor_id %>
-      <%= f.input :implementation_status, collection: RequestForChange::IMPLEMENTATION_STATUSES, as: :radio_buttons %>
-      <%= f.input :implement_comments %>
-      <%= f.input :implementation_start %>
-      <%= f.input :implementation_end %>
-    </div>
   </div>
 
   <div class="form-actions">
