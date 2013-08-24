@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130824060153) do
+ActiveRecord::Schema.define(version: 20130824142555) do
 
   create_table "request_for_changes", force: true do |t|
     t.string   "noc_tracking_url"
@@ -33,11 +33,14 @@ ActiveRecord::Schema.define(version: 20130824060153) do
     t.text     "test_plan"
     t.text     "back_out_plan"
     t.integer  "management_approver_id"
-    t.integer  "security_approver_id"
-    t.string   "approval_status"
-    t.string   "approval_comments"
+    t.string   "mgmt_approval_status"
+    t.string   "mgmt_approval_comments"
     t.date     "change_scheduled_for"
-    t.date     "approval_date"
+    t.date     "mgmt_decision_date"
+    t.integer  "security_approver_id"
+    t.string   "sec_approval_status"
+    t.string   "sec_approval_comments"
+    t.date     "sec_decision_date"
     t.integer  "implementor_id"
     t.string   "implementation_status"
     t.string   "implement_comments"
@@ -61,6 +64,10 @@ ActiveRecord::Schema.define(version: 20130824060153) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.string   "company"
+    t.string   "full_name"
+    t.string   "title"
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

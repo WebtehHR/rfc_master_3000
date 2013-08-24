@@ -1,4 +1,22 @@
 <div class="container well">
   <h2>Section 3: Security Officer</h2>
   <hr/>
+
+  <div class="row-fluid">
+    <%= f.input :security_approver_name_with_description, disabled: true %>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span4">
+      <%= f.input :sec_approval_status, collection: RequestForChange::APPROVAL_STATUSES, as: :radio_buttons %>
+    </div>
+    <div class="span8">
+      <%= f.input :sec_approval_comments, as: :text, :input_html => { rows: 4, class: 'span10' } %>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <%= f.input :sec_decision_date, disabled: true %>
+  </div>
+
 </div>

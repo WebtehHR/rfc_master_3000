@@ -3,11 +3,21 @@
   <hr/>
 
   <div class="row-fluid">
-    <%= f.input :management_approver_email, disabled: true %>
-    <%= f.input :security_approver_email, disabled: true %>
-    <%= f.input :approval_status, collection: RequestForChange::APPROVAL_STATUSES, as: :radio_buttons %>
-    <%= f.input :approval_comments %>
+    <%= f.input :management_approver_name_with_description, disabled: true %>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span4">
+      <%= f.input :mgmt_approval_status, collection: RequestForChange::APPROVAL_STATUSES, as: :radio_buttons %>
+    </div>
+    <div class="span8">
+      <%= f.input :mgmt_approval_comments, as: :text, :input_html => { rows: 4, class: 'span10' } %>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <%= f.association :implementor, label_method: :name_with_description %>
     <%= f.input :change_scheduled_for %>
-    <%= f.input :approval_date, disabled: true %>
+    <%= f.input :mgmt_decision_date, disabled: true %>
   </div>
 </div>
