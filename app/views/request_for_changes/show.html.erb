@@ -1,0 +1,149 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Noc tracking number:</strong>
+  <%= @request_for_change.noc_tracking_number %>
+</p>
+
+<p>
+  <strong>Webteh tracking number:</strong>
+  <%= @request_for_change.webteh_tracking_number %>
+</p>
+
+<p>
+  <strong>Type network:</strong>
+  <%= @request_for_change.type_network %>
+</p>
+
+<p>
+  <strong>Type servers:</strong>
+  <%= @request_for_change.type_servers %>
+</p>
+
+<p>
+  <strong>Type application:</strong>
+  <%= @request_for_change.type_application %>
+</p>
+
+<p>
+  <strong>Type user management:</strong>
+  <%= @request_for_change.type_user_management %>
+</p>
+
+<p>
+  <strong>Requested by:</strong>
+  <%= @request_for_change.requested_by_id %>
+</p>
+
+<p>
+  <strong>Description of change:</strong>
+  <%= @request_for_change.description_of_change %>
+</p>
+
+<p>
+  <strong>Change repair:</strong>
+  <%= @request_for_change.change_repair %>
+</p>
+
+<p>
+  <strong>Change removal:</strong>
+  <%= @request_for_change.change_removal %>
+</p>
+
+<p>
+  <strong>Change emergency:</strong>
+  <%= @request_for_change.change_emergency %>
+</p>
+
+<p>
+  <strong>Change other:</strong>
+  <%= @request_for_change.change_other %>
+</p>
+
+<p>
+  <strong>Request implement window:</strong>
+  <%= @request_for_change.request_implement_window %>
+</p>
+
+<p>
+  <strong>Systems affected:</strong>
+  <%= @request_for_change.systems_affected %>
+</p>
+
+<p>
+  <strong>Users affected:</strong>
+  <%= @request_for_change.users_affected %>
+</p>
+
+<p>
+  <strong>Criticality of change:</strong>
+  <%= @request_for_change.criticality_of_change %>
+</p>
+
+<p>
+  <strong>Test plan:</strong>
+  <%= @request_for_change.test_plan %>
+</p>
+
+<p>
+  <strong>Back out plan:</strong>
+  <%= @request_for_change.back_out_plan %>
+</p>
+
+<p>
+  <strong>Management approver:</strong>
+  <%= @request_for_change.management_approver_id %>
+</p>
+
+<p>
+  <strong>Cso approver:</strong>
+  <%= @request_for_change.cso_approver_id %>
+</p>
+
+<p>
+  <strong>Approval status:</strong>
+  <%= @request_for_change.approval_status %>
+</p>
+
+<p>
+  <strong>Approval comments:</strong>
+  <%= @request_for_change.approval_comments %>
+</p>
+
+<p>
+  <strong>Change scheduled for:</strong>
+  <%= @request_for_change.change_scheduled_for %>
+</p>
+
+<p>
+  <strong>Approval date:</strong>
+  <%= @request_for_change.approval_date %>
+</p>
+
+<p>
+  <strong>Implementor:</strong>
+  <%= @request_for_change.implementor_id %>
+</p>
+
+<p>
+  <strong>Implementation status:</strong>
+  <%= @request_for_change.implementation_status %>
+</p>
+
+<p>
+  <strong>Implement comments:</strong>
+  <%= @request_for_change.implement_comments %>
+</p>
+
+<p>
+  <strong>Implementation start:</strong>
+  <%= @request_for_change.implementation_start %>
+</p>
+
+<p>
+  <strong>Implementation end:</strong>
+  <%= @request_for_change.implementation_end %>
+</p>
+
+<%= link_to 'Edit', edit_request_for_change_path(@request_for_change) %> |
+<%= link_to 'Back', request_for_changes_path %>
