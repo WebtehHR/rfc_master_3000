@@ -1,4 +1,6 @@
 class RequestForChangesController < ApplicationController
+  before_filter :authenticate_user!
+
   before_action :set_request_for_change, only: [:show, :edit, :update, :destroy]
 
   # GET /request_for_changes
@@ -64,11 +66,13 @@ class RequestForChangesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_for_change_params
+      rfc = @request_for_change || RequestForChange.new
+      
       safe_params = []
-      safe_params += RequestForChange::REQUEST_ATTRIBUTES if @request_for_change.request_section_editable?
-      safe_params += RequestForChange::MANAGEMENT_APPROVAL_ATTRIBUTES if @request_for_change.management_section_editable?
-      safe_params += RequestForChange::SECURITY_APPROVAL_ATTRIBUTES if @request_for_change.security_officer_section_editable?
-      safe_params += RequestForChange::IMPLEMENTOR_ATTRIBUTES if @request_for_change.implementation_section_editable?
+      safe_params += RequestForChange::REQUEST_ATTRIBUTES if rfc.request_section_editable?
+      safe_params += RequestForChange::MANAGEMENT_APPROVAL_ATTRIBUTES if rfc.management_section_editable?
+      safe_params += RequestForChange::SECURITY_APPROVAL_ATTRIBUTES if rfc.security_officer_section_editable?
+      safe_params += RequestForChange::IMPLEMENTOR_ATTRIBUTES if rfc.implementation_section_editable?
 
       params.require(:request_for_change).permit(*safe_params)
     end

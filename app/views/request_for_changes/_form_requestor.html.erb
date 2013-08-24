@@ -1,80 +1,78 @@
-<div class="container well">
-  <h2>Section 1: Requestor</h2>
-  <hr/>
+<h2>Section 1: Requestor</h2>
+<hr/>
 
-  <div class="row-fluid">
-    <div class="span3">
-      <%= f.input :requestor_name_with_description, disabled: true %>
-    </div>
-    <div class="span3">
-      <%= f.input :noc_tracking_url, label: 'NOC tracking URL', :input_html => { class: 'span11' } %>
-    </div>
-    <div class="span3">
-      <%= f.input :webteh_tracking_url, label: 'Webteh tracking URL', :input_html => { class: 'span11' } %>
-    </div>
+<div class="row-fluid">
+  <div class="span3">
+    <%= f.input :requestor_name_with_description, disabled: true %>
   </div>
-  <hr/>
-
-  <div class="row-fluid">
-    <div class="span4"><%= f.input :description_of_change, :input_html => { class: 'span11' } %></div>
-    <label>Type</label>
-    <div class="span2">
-      <%= f.input :type_network, label: 'Network' %>
-    </div>
-    <div class="span2">
-      <%= f.input :type_servers, label: 'Servers' %>
-    </div>
-    <div class="span2">
-      <%= f.input :type_application, label: 'Application' %>
-    </div>
-    <div class="span2">
-      <%= f.input :type_user_management, label: 'User management' %>
-    </div>
+  <div class="span3">
+    <%= f.input :noc_tracking_url, label: 'NOC tracking URL', :input_html => { class: 'span11' } %>
   </div>
-  <hr/>
-
-  <div class="row-fluid">
-    <div class="span2">
-      <%= f.input :criticality_of_change, collection: RequestForChange::CRITICALITY, as: :radio_buttons %>
-    </div>
-
-    <label>Type of change</label>
-    <div class="span2">
-      <%= f.input :change_repair, label: 'Repair' %>
-    </div>
-    <div class="span2">
-      <%= f.input :change_removal, label: 'Removal' %>
-    </div>
-    <div class="span2">
-      <%= f.input :change_emergency, label: 'Emergency' %>
-    </div>
-    <div class="span2">
-      <%= f.input :change_other, label: 'Other' %>
-    </div>
+  <div class="span3">
+    <%= f.input :webteh_tracking_url, label: 'Webteh tracking URL', :input_html => { class: 'span11' } %>
   </div>
-  <hr/>
+</div>
+<hr/>
 
-  <div class="row-fluid">
-    <div class="span6">
-      <%= f.input :systems_affected, as: :text, :input_html => { rows: 4, class: 'span12' } %>
-    </div>
-    <div class="span6">
-      <%= f.input :users_affected, as: :text, :input_html => { rows: 4, class: 'span12' } %>
-    </div>
+<div class="row-fluid">
+  <div class="span4"><%= f.input :description_of_change, :input_html => { class: 'span11' } %></div>
+  <label>Type</label>
+  <div class="span2">
+    <%= f.input :type_network, label: 'Network' %>
   </div>
-  <hr/>
+  <div class="span2">
+    <%= f.input :type_servers, label: 'Servers' %>
+  </div>
+  <div class="span2">
+    <%= f.input :type_application, label: 'Application' %>
+  </div>
+  <div class="span2">
+    <%= f.input :type_user_management, label: 'User management' %>
+  </div>
+</div>
+<hr/>
 
-  <div class="row-fluid">
-    <div class="span6">
-      <%= f.input :test_plan, :input_html => { rows: 10, class: 'span12' } %>
-    </div>
-    <div class="span6">
-      <%= f.input :back_out_plan, :input_html => { rows: 10, class: 'span12' } %>
-    </div>
+<div class="row-fluid">
+  <div class="span2">
+    <%= f.input :criticality_of_change, collection: RequestForChange::CRITICALITY, as: :radio_buttons %>
   </div>
-  <hr/>
 
-  <div class="row-fluid">
-    <%= f.input :request_implement_window, label: 'Request implementation window' %>
+  <label>Type of change</label>
+  <div class="span2">
+    <%= f.input :change_repair, label: 'Repair' %>
   </div>
+  <div class="span2">
+    <%= f.input :change_removal, label: 'Removal' %>
+  </div>
+  <div class="span2">
+    <%= f.input :change_emergency, label: 'Emergency' %>
+  </div>
+  <div class="span2">
+    <%= f.input :change_other, label: 'Other' %>
+  </div>
+</div>
+<hr/>
+
+<div class="row-fluid">
+  <div class="span6">
+    <%= f.input :systems_affected, as: :text, :input_html => { rows: 4, class: 'span12' } %>
+  </div>
+  <div class="span6">
+    <%= f.input :users_affected, as: :text, :input_html => { rows: 4, class: 'span12' } %>
+  </div>
+</div>
+<hr/>
+
+<div class="row-fluid">
+  <div class="span6">
+    <%= f.input :test_plan, :input_html => { rows: 10, class: 'span12' } %>
+  </div>
+  <div class="span6">
+    <%= f.input :back_out_plan, :input_html => { rows: 10, class: 'span12' } %>
+  </div>
+</div>
+<hr/>
+
+<div class="row-fluid">
+  <%= f.input :request_implement_window, label: 'Request implementation window' %>
 </div>

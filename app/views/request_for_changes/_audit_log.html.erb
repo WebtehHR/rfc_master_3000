@@ -1,9 +1,9 @@
 <h2>Section 5: Audit Log</h2>
 <hr/>
 
-<% @request_for_change.versions.each_with_index do |version, idx| %>
+<% @request_for_change.versions.reverse.each do |version| %>
 
-  <h4>Version <%= idx+1 %>: <%= version.event %> by <%= User.find(version.whodunnit).name_with_description %></h4>
+  <h4>Version <%= version.index+1 %>: <%= version.event %> by <%= User.find(version.whodunnit).name_with_description %> <%= distance_of_time_in_words_to_now(version.created_at) %> ago</h4>
   <p><strong>Time: </strong> <%= version.created_at %></p>
 
   <table class="table table-striped table-condensed">
@@ -16,8 +16,13 @@
       <% version.changeset.except(:updated_at).each do |attribute, values| %>
         <tr>
           <td><%= attribute.humanize %></td>
-          <td><pre><%= values.first %></pre></td>
-          <td><pre><%= values.last %></pre></td>
+          <% if attribute == 'implementor_id' || attribute == 'management_approver_id' || attribute == 'security_approver_id' %>
+            <td><pre><%= User.find_by_id(values.first).try(:name_with_description) || 'unassigned' %></pre></td>
+            <td><pre><%= User.find_by_id(values.last).try(:name_with_description) || 'unassigned' %></pre></td>
+          <% else %>
+            <td><pre><%= values.first %></pre></td>
+            <td><pre><%= values.last %></pre></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
