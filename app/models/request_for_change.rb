@@ -97,6 +97,10 @@ class RequestForChange < ActiveRecord::Base
     mgmt_approval_status == 'approved' && sec_approval_status == 'approved'
   end
 
+  def request_editable?
+    not( mgmt_approval_status == 'approved' || sec_approval_status == 'approved' )
+  end
+
   
   private
 

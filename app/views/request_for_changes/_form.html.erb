@@ -5,7 +5,7 @@
 
   <div class="form-inputs">
 
-    <% f.with_options disabled: @request_for_change.implementation_granted? || not(@request_for_change.edited_by_requestor? || @request_for_change.edited_by_manager?) do |g| %>
+    <% f.with_options disabled: !@request_for_change.request_editable? || not(@request_for_change.edited_by_requestor? || @request_for_change.edited_by_manager?) do |g| %>
       <%= render 'form_requestor', :f => g %>
     <% end %>
 
