@@ -6,6 +6,27 @@ class RequestForChange < ActiveRecord::Base
 
   USER_DELEGATORS = [ :email, :name_with_description ]
 
+  REQUEST_ATTRIBUTES = [
+    :noc_tracking_url, :webteh_tracking_url, :type_network, :type_servers,
+    :type_application, :type_user_management, :description_of_change,
+    :change_repair, :change_removal, :change_emergency, :change_other,
+    :request_implement_window, :systems_affected, :users_affected,
+    :criticality_of_change, :test_plan, :back_out_plan
+  ]
+
+  MANAGEMENT_APPROVAL_ATTRIBUTES = [
+    :mgmt_approval_status, :mgmt_approval_comments, :change_scheduled_for, :implementor_id
+  ]
+
+  SECURITY_APPROVAL_ATTRIBUTES = [
+    :sec_approval_status, :sec_approval_comments
+  ]
+
+  IMPLEMENTOR_ATTRIBUTES = [
+    :implementation_status, :implement_comments, :implementation_start, :implementation_end
+  ]
+
+  
   belongs_to :requestor, :class_name => 'User'
   belongs_to :management_approver, :class_name => 'User'
   belongs_to :security_approver, :class_name => 'User'
@@ -44,10 +65,10 @@ class RequestForChange < ActiveRecord::Base
   with_options if: lambda{ |rfc| rfc.edited_by_implementor? } do |o|
     o.validates :implementation_status, inclusion: { in: IMPLEMENTATION_STATUSES }
   end
-
-
   # ============================== END:   validators ===========================
 
+
+  # ======================== BEGIN: who is current user? =======================
   def edited_by_requestor?
     !persisted? || requestor == User.current_user
   end
@@ -68,7 +89,10 @@ class RequestForChange < ActiveRecord::Base
     return false unless implementation_granted?
     return true if implementor == User.current_user
   end
+  # ======================== END:   who is current user? =======================
 
+
+  # ========================== BEGIN: set roles ================================
   def set_requestor options = {}
     if edited_by_requestor?
       self.requestor ||= User.current_user
@@ -92,18 +116,42 @@ class RequestForChange < ActiveRecord::Base
     end
     true
   end
+  # ========================== END:   set roles ================================
 
+
+  # ========================== BEGIN: roles? ===================================
   def implementation_granted?
     mgmt_approval_status == 'approved' && sec_approval_status == 'approved'
   end
 
-  def request_editable?
-    not( mgmt_approval_status == 'approved' || sec_approval_status == 'approved' )
+  def at_least_partially_approved?
+    mgmt_approval_status == 'approved' || sec_approval_status == 'approved'
   end
+
+  # request section is editable unless partially approved and editor isn't a
+  # good person
+  def request_section_editable?
+     !at_least_partially_approved? && (edited_by_requestor? || edited_by_manager?)
+  end
+
+  def management_section_editable?
+    edited_by_manager?
+  end
+
+  def security_officer_section_editable?
+    edited_by_security_officer?
+  end
+
+  def implementation_section_editable?
+    implementation_granted? && edited_by_implementor?
+  end
+  # ========================== END:   roles? ===================================
+
 
   
   private
 
+  # ======================== BEGIN: validators =================================
   def validate_tracking_url
     company = User.current_user.company
 
@@ -131,6 +179,8 @@ class RequestForChange < ActiveRecord::Base
       end
     end
   end
+  # ======================== END:   validators =================================
+
 
   def _force_update_role? options
     changed? || options[:force]

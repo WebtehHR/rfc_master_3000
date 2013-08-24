@@ -5,19 +5,19 @@
 
   <div class="form-inputs">
 
-    <% f.with_options disabled: !@request_for_change.request_editable? || not(@request_for_change.edited_by_requestor? || @request_for_change.edited_by_manager?) do |g| %>
+    <% f.with_options disabled: !@request_for_change.request_section_editable? do |g| %>
       <%= render 'form_requestor', :f => g %>
     <% end %>
 
-    <% f.with_options disabled: not(@request_for_change.edited_by_manager?) do |g| %>
+    <% f.with_options disabled: not(@request_for_change.management_section_editable?) do |g| %>
       <%= render 'form_management', :f => g %>
     <% end %>
 
-    <% f.with_options disabled: not(@request_for_change.edited_by_security_officer?) do |g| %>
+    <% f.with_options disabled: not(@request_for_change.security_officer_section_editable?) do |g| %>
       <%= render 'form_security', :f => g %>
     <% end %>
 
-    <% f.with_options disabled: not(@request_for_change.edited_by_implementor?) do |g| %>
+    <% f.with_options disabled: not(@request_for_change.implementation_section_editable?) do |g| %>
       <%= render 'form_implementor', :f => g %>
     <% end %>
 

@@ -64,6 +64,12 @@ class RequestForChangesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_for_change_params
-      params.require(:request_for_change).to_hash
+      safe_params = []
+      safe_params += RequestForChange::REQUEST_ATTRIBUTES if @request_for_change.request_section_editable?
+      safe_params += RequestForChange::MANAGEMENT_APPROVAL_ATTRIBUTES if @request_for_change.management_section_editable?
+      safe_params += RequestForChange::SECURITY_APPROVAL_ATTRIBUTES if @request_for_change.security_officer_section_editable?
+      safe_params += RequestForChange::IMPLEMENTOR_ATTRIBUTES if @request_for_change.implementation_section_editable?
+
+      params.require(:request_for_change).permit(*safe_params)
     end
 end
