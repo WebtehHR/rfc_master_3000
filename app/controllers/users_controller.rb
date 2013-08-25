@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_user_admin!
 
   # TODO: pagination
   def index
@@ -53,6 +54,13 @@ class UsersController < ApplicationController
 
   def set_form_path
     @post_to_path
+  end
+
+  def require_user_admin!
+    unless current_user.user_admin?
+      redirect_to account_edit_path, notice: "I'll be watching you #{current_user.try(:full_name)}"
+      return false
+    end
   end
 
 end
