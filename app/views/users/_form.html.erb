@@ -1,7 +1,14 @@
 <%= simple_form_for(@user, :as => :users, :url => @post_to_path, :html => { :method => :put }) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div class="form-inputs form-horizontal">
+    <%= f.input :full_name %>
+    <%= f.input :email %>
+    <%= f.input :company, collection: User::COMPANIES, as: :radio_buttons %>
+    <%= f.input :role, collection: User::ROLES, as: :radio_buttons %>
+    <%= f.input :user_admin %>
+    <%= f.input :title, collection: User::TITLES %>
+
     <%= f.input :password, :label => "New password", :required => true, :autofocus => true %>
     <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
   </div>

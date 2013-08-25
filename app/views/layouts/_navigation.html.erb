@@ -2,22 +2,26 @@
 <ul class="nav">
   <% if user_signed_in? %>
     <li>
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-    </li>
-  <% else %>
-    <li>
-    <%= link_to 'Login', new_user_session_path %>
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
     <%= link_to 'New RFC', new_request_for_change_path %>
     </li>
     <li>
     <%= link_to 'RFCs', request_for_changes_path %>
     </li>
     <li>
+    <%= link_to 'Users', users_path if current_user.user_admin? %>
+    </li>
+    <li>
     <%= link_to 'Edit account', account_edit_path %>
+    </li>
+  <% end %>
+    
+  <% if user_signed_in? %>
+    <li>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+    </li>
+  <% else %>
+    <li>
+    <%= link_to 'Login', new_user_session_path %>
     </li>
   <% end %>
 </ul>

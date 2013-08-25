@@ -6,12 +6,19 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
 
   COMPANIES = ['Webteh', 'NOC']
-  TITLES = ['developer', 'apprentice', 'junior developer', 'senior developer', 'Security Officer', 'COO', 'CTO', 'CEO', 'CSO']
+  TITLES = [
+    'apprentice', 'junior developer', 'senior developer', 'QA staff', 'support',
+    'security officer',
+    'network admin', 'system admin',
+    'COO', 'CTO', 'CEO', 'CSO',
+    '*other*',
+    'windows freak', 'Sheldon'
+  ]
   ROLES = [ 'user', 'manager', 'security' ]
 
-  validates :company, inclusion: { in: COMPANIES }, presence: true
-  validates :role, inclusion: { in: ROLES }, presence: true
-  validates :title, presence: true
+  validates :company, presence: true, inclusion: { in: COMPANIES }
+  validates :role, presence: true, inclusion: { in: ROLES }
+  validates :title, presence: true, inclusion: { in: TITLES }
   validates :full_name, presence: true
 
   # validates email
@@ -21,11 +28,12 @@ class User < ActiveRecord::Base
 
   # validates password
   message = "Your password must contain a capital letter, two numbers, a symbol,<br/>an inspiring message, a spell, a gang sign, a hieroglyph and the blood of a virgin".html_safe
-  validates :password, :if => :password_required?,
+  validates :password,
     :presence => true,
     :length => 8..30,
     :format => { with: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, message: message },
-    :confirmation => true
+    :confirmation => true,
+    :if => :password_required?
 
   def self.current_user
     Thread.current[:current_user]
@@ -46,5 +54,13 @@ class User < ActiveRecord::Base
   def security_officer?
     role == 'security'
   end
+
+  # Checks whether a password is needed or not. For validations only.
+  # Passwords are always required if it's a new record, or if the password
+  # or confirmation are being set somewhere.
+  def password_required?
+    !persisted? || !password.blank? || !password_confirmation.blank?
+  end
+
 
 end
