@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130824173518) do
+ActiveRecord::Schema.define(version: 20130825135915) do
 
   create_table "request_for_changes", force: true do |t|
     t.string   "noc_tracking_url"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20130824173518) do
     t.string   "full_name"
     t.string   "title"
     t.string   "role"
+    t.boolean  "user_admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

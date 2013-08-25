@@ -24,6 +24,7 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'pry-rails' # enter dragon
 end
 group :production do
   gem 'thin'

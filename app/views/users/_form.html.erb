@@ -1,0 +1,12 @@
+<%= simple_form_for(@user, :as => :users, :url => @post_to_path, :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :password, :label => "New password", :required => true, :autofocus => true %>
+    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Submit" %>
+  </div>
+<% end %>
