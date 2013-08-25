@@ -19,6 +19,7 @@ class AccountController < ApplicationController
 
   def account_params
     safe_params = [:password, :password_confirmation]
+    safe_params += [:full_name, :email, :company, :role, :user_admin, :title] if current_user.user_admin?
     params.require(:users).permit(*safe_params)
   end
 
