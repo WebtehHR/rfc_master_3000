@@ -6,5 +6,5 @@ RfcMaster3000::Application.routes.draw do
   resources :users
   
   match 'account/edit' => 'account#edit', via: :get
-  match 'account/edit' => 'account#update', via: :put
+  match 'account/edit' => 'account#update', via: [:put, :patch]
 end
