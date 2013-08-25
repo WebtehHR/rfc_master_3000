@@ -1,6 +1,3 @@
-<h2>Section 5: Audit Log</h2>
-<hr/>
-
 <% entity.versions.reverse.each do |version| %>
 
   <% whodunnit = User.find_by_id(version.whodunnit) %>
