@@ -1,9 +1,11 @@
 <h2>Section 5: Audit Log</h2>
 <hr/>
 
-<% @request_for_change.versions.reverse.each do |version| %>
+<% entity.versions.reverse.each do |version| %>
 
-  <h4>Version <%= version.index+1 %>: <%= version.event %> by <%= User.find(version.whodunnit).name_with_description %> <%= distance_of_time_in_words_to_now(version.created_at) %> ago</h4>
+  <% whodunnit = User.find_by_id(version.whodunnit) %>
+
+  <h4>Version <%= version.index+1 %>: <%= version.event %> by <%= whodunnit.try(:name_with_description) || 'unknown' %> <%= distance_of_time_in_words_to_now(version.created_at) %> ago</h4>
   <p><strong>Time: </strong> <%= version.created_at %></p>
 
   <table class="table table-striped table-condensed">

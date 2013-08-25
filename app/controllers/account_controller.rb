@@ -14,7 +14,7 @@ class AccountController < ApplicationController
     end
   end
 
-
+  
   private
 
   def account_params
