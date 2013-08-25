@@ -10,6 +10,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'devise_security_extension'
+gem 'rails_email_validator'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'simple_form_class', git: 'https://github.com/bbozo/simple_form_class'
 gem 'paper_trail', :git => "https://github.com/airblade/paper_trail.git", :branch => "rails4"
