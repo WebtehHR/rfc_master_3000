@@ -149,7 +149,7 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def implementation_section_editable?
-    implementation_granted? && edited_by_implementor?
+    edited_by_manager? || ( implementation_granted? && edited_by_implementor? )
   end
   # ========================== END:   roles? ===================================
 
