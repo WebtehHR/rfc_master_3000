@@ -1,6 +1,9 @@
 <%= link_to "RFC Master 3000", root_path, :class => 'brand' %>
 <ul class="nav">
   <% if user_signed_in? %>
+    <% if ::Rails.env.development? %>
+      <span class="box">Hello <%= current_user.name_with_description %> (<%= current_user.email  %> )</span>
+    <% end %>
     <li>
     <%= link_to 'New RFC', new_request_for_change_path %>
     </li>
