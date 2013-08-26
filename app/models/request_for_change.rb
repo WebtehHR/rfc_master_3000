@@ -52,15 +52,13 @@ class RequestForChange < ActiveRecord::Base
   end
 
   with_options if: lambda{ |rfc| rfc.edited_by_manager? } do |o|
-    o.validates :mgmt_approval_status,  inclusion: { in: APPROVAL_STATUSES }
-    o.validates :mgmt_approval_comments, presence: true
+    o.validates :mgmt_approval_status,  presence: true, inclusion: { in: APPROVAL_STATUSES }
     o.validate  :validate_implementor
     o.before_save :set_manager
   end
 
   with_options if: lambda{ |rfc| rfc.edited_by_security_officer? } do |o|
-    o.validates :sec_approval_status,   inclusion: { in: APPROVAL_STATUSES }
-    o.validates :sec_approval_comments, presence: true
+    o.validates :sec_approval_status, presence: true, inclusion: { in: APPROVAL_STATUSES }
     o.before_save :set_security_officer
   end
 
