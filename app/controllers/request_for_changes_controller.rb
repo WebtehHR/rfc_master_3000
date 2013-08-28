@@ -6,7 +6,7 @@ class RequestForChangesController < ApplicationController
   # GET /request_for_changes
   # GET /request_for_changes.json
   def index
-    @request_for_changes = RequestForChange.all
+    @request_for_changes = RequestForChange.order(id: :desc).all
   end
 
   # GET /request_for_changes/1

@@ -16,18 +16,21 @@
 
 <div class="row-fluid">
   <div class="span4"><%= f.input :description_of_change, :input_html => { class: 'span11' } %></div>
-  <label>Type</label>
-  <div class="span2">
+  <label>RFC Type</label>
+  <div class="span1">
     <%= f.input :type_network, label: 'Network' %>
   </div>
-  <div class="span2">
+  <div class="span1">
     <%= f.input :type_servers, label: 'Servers' %>
   </div>
-  <div class="span2">
+  <div class="span1">
     <%= f.input :type_application, label: 'Application' %>
   </div>
   <div class="span2">
     <%= f.input :type_user_management, label: 'User management' %>
+  </div>
+  <div class="span2">
+    <%= f.input :type_documentation, label: 'Documentation' %>
   </div>
 </div>
 <hr/>

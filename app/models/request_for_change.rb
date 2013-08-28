@@ -10,7 +10,7 @@ class RequestForChange < ActiveRecord::Base
 
   REQUEST_ATTRIBUTES = [
     :noc_tracking_url, :webteh_tracking_url, :type_network, :type_servers,
-    :type_application, :type_user_management, :description_of_change,
+    :type_application, :type_user_management, :type_documentation, :description_of_change,
     :change_repair, :change_removal, :change_emergency, :change_other,
     :request_implement_window, :systems_affected, :users_affected,
     :criticality_of_change, :test_plan, :back_out_plan
@@ -43,7 +43,9 @@ class RequestForChange < ActiveRecord::Base
   with_options if: lambda{ |rfc| rfc.edited_by_requestor? } do |o|
     o.validates :criticality_of_change, inclusion: { in: CRITICALITY }, presence: true
     o.validate  :validate_tracking_url
+    o.validate :validate_type_of_rfc
     o.validates :description_of_change, presence: true
+    o.validate :validate_type_of_change
     o.validates :systems_affected, presence: true
     o.validates :users_affected, presence: true
     o.validates :test_plan,     length: { minimum: 10, allow_blank: true }
@@ -212,6 +214,22 @@ class RequestForChange < ActiveRecord::Base
 
   def detect_approval_status_source status
     approval_status.map{|k,v| k if v == status }.compact
+  end
+
+  def validate_type_of_rfc
+    # [:type_network, :type_servers, :type_application, :type_user_management, :type_documentation]
+    rfc_type_attributes = REQUEST_ATTRIBUTES.reject{|x| not x.to_s =~ /^type_/}
+    return true if rfc_type_attributes.detect{|x| send(x)}
+
+    rfc_type_attributes.each{ |x| errors.add(x, 'select something') }
+  end
+
+  def validate_type_of_change
+    # [:change_repair, :change_removal, :change_emergency, :change_other]
+    change_type_attributes = REQUEST_ATTRIBUTES.reject{|x| not x.to_s =~ /^change_/}
+    return true if change_type_attributes.detect{|x| send(x)}
+
+    change_type_attributes.each{ |x| errors.add(x, 'select something') }
   end
 
 end

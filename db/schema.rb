@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130825135915) do
+ActiveRecord::Schema.define(version: 20130828054750) do
 
   create_table "request_for_changes", force: true do |t|
     t.string   "noc_tracking_url"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20130825135915) do
     t.date     "implementation_end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "type_documentation"
   end
 
   create_table "users", force: true do |t|
