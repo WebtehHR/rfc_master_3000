@@ -144,11 +144,11 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def management_section_editable?
-    edited_by_manager?
+    implementation_status != 'implemented' && edited_by_manager?
   end
 
   def security_officer_section_editable?
-    edited_by_security_officer?
+    implementation_status != 'implemented' && edited_by_security_officer?
   end
 
   def implementation_section_editable?
@@ -161,7 +161,9 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def implementation_status_for_show
-    if implementation_granted?
+    if not valid?
+      "Requires review of #{errors.messages.keys.map{|x| x.to_s.humanize.downcase}.join(', ')}"
+    elsif implementation_granted?
       implementation_status.try(:humanize) || 'In progress'
     elsif implementation_rejected?
       "No, rejected by #{detect_approval_status_source('rejected').join(', ')}"
@@ -203,7 +205,7 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def validate_approvers
-    if management_approver == security_approver
+    if management_approver && management_approver == security_approver
       errors.add(:management_approver_name_with_description, "can't be same person as security approver")
       errors.add(:security_approver_name_with_description, "can't be same person as management approver")
     end
