@@ -70,6 +70,7 @@ class RequestForChange < ActiveRecord::Base
   end
 
   validate :validate_approvers
+  validate :validate_against_changes_after_implementation
   # ============================== END:   validators ===========================
 
 
@@ -161,7 +162,9 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def implementation_status_for_show
-    if not valid?
+    if implementation_status == 'implemented'
+      'Implemented'
+    elsif not valid?
       "Requires review of #{errors.messages.keys.map{|x| x.to_s.humanize.downcase}.join(', ')}"
     elsif implementation_granted?
       implementation_status.try(:humanize) || 'In progress'
@@ -225,6 +228,17 @@ class RequestForChange < ActiveRecord::Base
     return true if change_type_attributes.detect{|x| send(x)}
 
     change_type_attributes.each{ |x| errors.add(x, 'select something') }
+  end
+
+  def validate_against_changes_after_implementation
+    return unless implementation_status == 'implemented'
+
+    if mgmt_approval_status != 'approved'
+      errors.add(:mgmt_approval_status, "is supposed to be 'approved' once changes have been implemented")
+    end
+    if sec_approval_status != 'approved'
+      errors.add(:sec_approval_status, "is supposed to be 'approved' once changes have been implemented")
+    end
   end
   # ======================== END:   validators =================================
 
