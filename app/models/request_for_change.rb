@@ -17,11 +17,12 @@ class RequestForChange < ActiveRecord::Base
   ]
 
   MANAGEMENT_APPROVAL_ATTRIBUTES = [
-    :mgmt_approval_status, :mgmt_approval_comments, :change_scheduled_for, :implementor_id
+    :mgmt_approval_status, :mgmt_approval_comments, :change_scheduled_for, :implementor_id,
+    :mgmt_decision_date
   ]
 
   SECURITY_APPROVAL_ATTRIBUTES = [
-    :sec_approval_status, :sec_approval_comments
+    :sec_approval_status, :sec_approval_comments, :sec_decision_date
   ]
 
   IMPLEMENTOR_ATTRIBUTES = [
@@ -198,22 +199,12 @@ class RequestForChange < ActiveRecord::Base
       end
     end
   end
-  # ======================== END:   validators =================================
 
-
-  def _force_update_role? options
-    changed? || options[:force]
-  end
-
-  def approval_status
-    {
-      manager:  mgmt_approval_status || 'uncertain',
-      security: sec_approval_status || 'uncertain',
-    }
-  end
-
-  def detect_approval_status_source status
-    approval_status.map{|k,v| k if v == status }.compact
+  def validate_approvers
+    if management_approver == security_approver
+      errors.add(:management_approver_name_with_description, "can't be same person as security approver")
+      errors.add(:security_approver_name_with_description, "can't be same person as management approver")
+    end
   end
 
   def validate_type_of_rfc
@@ -230,6 +221,23 @@ class RequestForChange < ActiveRecord::Base
     return true if change_type_attributes.detect{|x| send(x)}
 
     change_type_attributes.each{ |x| errors.add(x, 'select something') }
+  end
+  # ======================== END:   validators =================================
+
+
+  def _force_update_role? options
+    changed? || options[:force]
+  end
+
+  def approval_status
+    {
+      manager:  mgmt_approval_status || 'uncertain',
+      security: sec_approval_status || 'uncertain',
+    }
+  end
+
+  def detect_approval_status_source status
+    approval_status.map{|k,v| k if v == status }.compact
   end
 
 end
