@@ -68,6 +68,8 @@ class RequestForChange < ActiveRecord::Base
   with_options if: lambda{ |rfc| rfc.edited_by_implementor? } do |o|
     o.validates :implementation_status, inclusion: { in: IMPLEMENTATION_STATUSES }
   end
+
+  validate :validate_approvers
   # ============================== END:   validators ===========================
 
 
