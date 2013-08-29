@@ -6,6 +6,7 @@
       <th>RFC ID</th>
       <th>Tracker</th>
       <th>Description</th>
+      <th>People</th>
       <th>Criticality</th>
       <th>Implementation?</th>
       <th></th>
@@ -21,6 +22,19 @@
           <%= link_to 'NOC',    rfc.noc_tracking_url, class: 'btn btn-small', target: '_blank' if rfc.noc_tracking_url.present? %>
         </td>
         <td><%= rfc.description_of_change %></td>
+        <td>
+          <div class="btn-group">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= pretty_dropdown_link_for_person rfc, :requestor %></li>
+              <li><%= pretty_dropdown_link_for_person rfc, :management_approver  %></li>
+              <li><%= pretty_dropdown_link_for_person rfc, :security_approver %></li>
+              <li><%= pretty_dropdown_link_for_person rfc, :implementor %></li>
+            </ul>
+          </div>
+        </td>
         <td><%= rfc.criticality_of_change %></td>
         <td><%= rfc.implementation_status_for_show %></td>
         <td><%= link_to 'Edit', edit_request_for_change_path(rfc), class: 'btn' %></td>
