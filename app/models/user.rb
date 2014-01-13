@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
     'network admin', 'system admin',
     'COO', 'CTO', 'CEO', 'CSO',
     '*other*',
-    'windows freak', 'Sheldon'
+    'windows freak', 'Sheldon',
+    'The Chief'
   ]
   ROLES = [ 'user', 'manager', 'security' ]
 
