@@ -72,3 +72,6 @@ pickle-email-*.html
 
 # vim artifacts
 **.swp
+
+# compiled assets
+/public/assets

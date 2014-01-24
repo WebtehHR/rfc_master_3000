@@ -29,6 +29,7 @@ group :development, :test do
 end
 group :production do
   gem 'thin'
+  gem 'pry-rails'
 end
 group :test do
   gem 'capybara'
