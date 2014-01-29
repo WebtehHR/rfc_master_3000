@@ -80,12 +80,12 @@ class RequestForChange < ActiveRecord::Base
   end
 
   def edited_by_manager?
-    return false if edited_by_requestor?
+    #return false if edited_by_requestor?
     return true if User.current_user.manager?
   end
 
   def edited_by_security_officer?
-    return false if edited_by_requestor?
+    #return false if edited_by_requestor?
     return true if User.current_user.security_officer?
   end
 
