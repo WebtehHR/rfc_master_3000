@@ -1,4 +1,6 @@
 class RequestForChangesController < ApplicationController
+  INDEX_LIST_SIZE = 50
+
   before_filter :authenticate_user!
 
   before_action :set_request_for_change, only: [:show, :edit, :update, :destroy]
@@ -6,7 +8,14 @@ class RequestForChangesController < ApplicationController
   # GET /request_for_changes
   # GET /request_for_changes.json
   def index
-    @request_for_changes = RequestForChange.order(id: :desc).all
+    if user_id = params[:user]
+      @request_for_changes = RequestForChange.where('requestor_id=? OR implementor_id=? OR management_approver_id=? OR security_approver_id=?', user_id, user_id, user_id, user_id)
+                                             .order(id: :desc).page(params[:page]).per(INDEX_LIST_SIZE)
+      @users = User.all.order(full_name: :asc)
+    else
+      @request_for_changes = RequestForChange.order(id: :desc).page(params[:page]).per(INDEX_LIST_SIZE)
+      @users = User.all.order(full_name: :asc)
+    end
   end
 
   # GET /request_for_changes/1

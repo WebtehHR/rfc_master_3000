@@ -15,6 +15,12 @@ gem 'rails_email_validator'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'simple_form_class', git: 'https://github.com/bbozo/simple_form_class'
 gem 'paper_trail', :git => "https://github.com/airblade/paper_trail.git", :branch => "rails4"
+gem 'squeel'
+
+# pagination
+gem 'kaminari'
+gem 'kaminari-bootstrap'
+
 group :assets do
   gem 'therubyracer', :platform=>:ruby
 end
